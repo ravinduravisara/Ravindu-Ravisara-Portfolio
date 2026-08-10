@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import DepthCarousel from "./DepthCarousel.jsx";
 import projects from "../../../backend/data/projects.json";
+import fireProductionsImage from "../assets/fireproductions.jpeg";
+import InstrumentPlatformImage from "../assets/InstrumentPlatform.jpeg";
+import IsuruserviceImage from "../assets/Isuruservice.png";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 25 },
@@ -43,7 +47,41 @@ const cardVariants = {
   }),
 };
 
+const getProjectTitle = (project) => project.title?.trim() ?? "";
+
+const buildProjectSlides = (items) =>
+  items.map((project, index) => ({
+    title: getProjectTitle(project),
+    alt: getProjectTitle(project),
+    type:
+      getProjectTitle(project) === "Fire Production (Pvt)Ltd (Client Project)" ||
+      getProjectTitle(project) === "Online Instrument Rental Platform" ||
+      getProjectTitle(project) === "ISURU-Service-Center-Billing-System-Offline-Software-"
+        ? "image"
+        : "text",
+    image:
+      getProjectTitle(project) === "Fire Production (Pvt)Ltd (Client Project)"
+        ? fireProductionsImage
+        : getProjectTitle(project) === "Online Instrument Rental Platform"
+          ? InstrumentPlatformImage
+          : getProjectTitle(project) === "ISURU-Service-Center-Billing-System-Offline-Software-"
+            ? IsuruserviceImage
+            : null,
+    imageFit:
+      getProjectTitle(project) === "ISURU-Service-Center-Billing-System-Offline-Software-" ||
+      getProjectTitle(project) === "Online Instrument Rental Platform"
+        ? "contain"
+        : "cover",
+    imagePosition: "center center",
+    imageScale: 1,
+    color: `hsl(${(index * 47) % 360} 65% 18%)`,
+  }));
+
 const Projects = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const slides = useMemo(() => buildProjectSlides(projects), []);
+  const activeProject = projects[activeIndex] ?? projects[0];
+
   return (
     <motion.section
       id="projects"
@@ -102,107 +140,107 @@ const Projects = () => {
         />
       </motion.div>
 
-      {/* project cards */}
+      {/* project showcase */}
       <motion.div
-        className="relative grid md:grid-cols-2 gap-6"
+        className="relative grid gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(320px,0.7fr)]"
         variants={gridVariants}
       >
-        {projects.map((project, idx) => (
-          <motion.article
-            key={project.title}
-            className="
-              group bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 shadow-xl
-              flex flex-col
-              transition-all duration-300
-              hover:shadow-emerald-500/25 hover:border-emerald-500/40
-              cursor-pointer
-            "
-            variants={cardVariants}
-            custom={idx}
-            whileHover={{
-              y: -8,
-              scale: 1.02,
-            }}
-            onClick={() => project.url && window.open(project.url, '_blank')}
-            aria-label={project.url ? `Open ${project.title}` : project.title}
+        <motion.div
+          className="relative rounded-[2rem] border border-slate-800/80 bg-slate-950/50 p-3 sm:p-5 shadow-2xl shadow-black/20"
+          variants={cardVariants}
+          custom={0}
+        >
+          <div className="h-[520px] sm:h-[560px] lg:h-[600px]">
+            <DepthCarousel
+              items={slides}
+              cardWidth={320}
+              cardHeight={420}
+              depth={220}
+              spread={94}
+              tilt={22}
+              tiltDirection="right"
+              perspective={1450}
+              visibleCards={4}
+              falloff={0.18}
+              blur={6}
+              autoplay
+              autoplayDelay={3400}
+              loop
+              showControls
+              showIndicators
+              onChange={setActiveIndex}
+            />
+          </div>
+        </motion.div>
+
+        <motion.article
+          className="group rounded-[2rem] border border-slate-800/80 bg-slate-900/60 p-6 sm:p-7 shadow-xl flex flex-col"
+          variants={cardVariants}
+          custom={1}
+          whileHover={{ y: -4 }}
+        >
+          <motion.span
+            className="mb-4 inline-flex w-fit rounded-full border border-emerald-500/40 bg-slate-900/80 px-3 py-1 text-[11px] text-emerald-300 whitespace-nowrap"
+            animate={{ opacity: [0.8, 1, 0.8], y: [0, -1, 0] }}
+            transition={{ duration: 4, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
           >
-            <div className="flex items-start justify-between mb-3 gap-3">
-              <div className="flex-1">
-                <motion.h3
-                  className="text-base sm:text-lg font-semibold text-slate-50 flex items-center gap-2"
-                  animate={{ y: [0, -1.5, 0] }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    repeatType: "mirror",
-                    ease: "easeInOut",
-                    delay: idx * 0.2,
-                  }}
-                >
-                  {project.title}
-                  {/* small animated dot */}
-                  <motion.span
-                    className="h-1.5 w-1.5 rounded-full bg-emerald-400"
-                    animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
-                    transition={{
-                      duration: 2.4,
-                      repeat: Infinity,
-                      repeatType: "mirror",
-                      ease: "easeInOut",
-                    }}
-                  />
-                </motion.h3>
-              </div>
+            {activeProject?.category}
+          </motion.span>
+
+          <motion.h3
+            className="text-xl sm:text-2xl font-semibold tracking-tight text-slate-50"
+            animate={{ y: [0, -1.5, 0] }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              repeatType: "mirror",
+              ease: "easeInOut",
+            }}
+          >
+            {activeProject?.title}
+          </motion.h3>
+
+          <p className="mt-4 text-sm text-slate-300 leading-6">
+            {activeProject?.description}
+          </p>
+
+          <p className="mt-4 text-sm text-emerald-300 leading-6">
+            {activeProject?.highlight}
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-2 text-[11px] text-slate-200">
+            {activeProject?.tech?.map((tech, index) => (
               <motion.span
-                className="rounded-full border border-emerald-500/40 bg-slate-900/80 px-2 py-1 text-[11px] text-emerald-300 whitespace-nowrap"
-                animate={{ opacity: [0.8, 1, 0.8], y: [0, -1, 0] }}
+                key={tech}
+                className="rounded-full bg-slate-800/80 px-2.5 py-1 transition-all duration-300 group-hover:bg-slate-700"
+                animate={{ opacity: [0.7, 1, 0.7] }}
                 transition={{
                   duration: 4,
                   repeat: Infinity,
                   repeatType: "mirror",
                   ease: "easeInOut",
-                  delay: 0.3 + idx * 0.2,
+                  delay: 0.2 + index * 0.15,
                 }}
               >
-                {project.category}
+                {tech}
               </motion.span>
-            </div>
+            ))}
+          </div>
 
-            <p className="text-sm text-slate-300 mb-2">
-              {project.description}
-            </p>
-
-            <p className="text-xs text-emerald-300 mb-4">
-              {project.highlight}
-            </p>
-
-            <div className="mt-auto flex flex-wrap gap-2 text-[11px] text-slate-200">
-              {project.tech.map((t, i) => (
-                <motion.span
-                  key={t}
-                  className="
-                    rounded-full bg-slate-800/80 px-2.5 py-1
-                    transition-all duration-300
-                    group-hover:bg-slate-700
-                    hover:bg-emerald-500 hover:text-slate-950
-                    hover:-translate-y-0.5
-                  "
-                  animate={{ opacity: [0.7, 1, 0.7] }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    repeatType: "mirror",
-                    ease: "easeInOut",
-                    delay: 0.2 + i * 0.2 + idx * 0.1,
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  {t}
-                </motion.span>
-              ))}
-            </div>
-          </motion.article>
-        ))}
+          <div className="mt-6 flex items-center gap-3">
+            <a
+              href={activeProject?.url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-4 py-2 text-sm font-medium text-slate-950 transition-transform duration-300 hover:bg-emerald-400 hover:scale-[1.02]"
+            >
+              Open project
+            </a>
+            <span className="text-xs text-slate-500">
+              Project {activeIndex + 1} of {projects.length}
+            </span>
+          </div>
+        </motion.article>
       </motion.div>
     </motion.section>
   );
