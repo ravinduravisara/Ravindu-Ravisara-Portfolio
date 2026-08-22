@@ -277,6 +277,12 @@ const Projects = () => {
     typeof activeProject?.url === "string" &&
     activeProject.url.trim() !== "";
 
+  const isSmallScreen = typeof window !== "undefined" && window.innerWidth < 640;
+  const isTabletScreen = typeof window !== "undefined" && window.innerWidth < 1024;
+
+  const carouselCardWidth = isSmallScreen ? 220 : isTabletScreen ? 260 : 320;
+  const carouselCardHeight = isSmallScreen ? 300 : 420;
+
   return (
     <motion.section
       id="projects"
@@ -459,13 +465,13 @@ const Projects = () => {
             <DepthCarousel
               items={slides}
 
-              cardWidth={320}
+              cardWidth={carouselCardWidth}
 
-              cardHeight={420}
+              cardHeight={carouselCardHeight}
 
-              depth={220}
+              depth={isSmallScreen ? 170 : 220}
 
-              spread={94}
+              spread={isSmallScreen ? 62 : 94}
 
               tilt={22}
 
@@ -473,7 +479,7 @@ const Projects = () => {
 
               perspective={1450}
 
-              visibleCards={4}
+              visibleCards={isSmallScreen ? 3 : 4}
 
               falloff={0.18}
 

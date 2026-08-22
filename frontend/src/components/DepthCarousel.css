@@ -84,6 +84,36 @@
     transform 0.2s ease;
 }
 
+@media (max-width: 640px) {
+  .depth-carousel__arrow {
+    width: 34px;
+    height: 34px;
+  }
+
+  .depth-carousel__arrow--prev {
+    left: 8px;
+  }
+
+  .depth-carousel__arrow--next {
+    right: 8px;
+  }
+
+  .depth-carousel__dots {
+    bottom: 12px;
+    gap: 6px;
+    padding: 7px 10px;
+  }
+
+  .depth-carousel__dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .depth-carousel__dot.is-active {
+    width: 16px;
+  }
+}
+
 .depth-carousel__arrow:hover {
   background: rgba(28, 31, 40, 0.85);
   border-color: rgba(255, 255, 255, 0.4);

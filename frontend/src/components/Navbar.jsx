@@ -45,12 +45,13 @@ const Navbar = () => {
         >
           <span
             className="
-              text-white text-lg sm:text-xl font-semibold tracking-wide
+              text-white text-base sm:text-xl font-semibold tracking-wide
               transition-all duration-300
               group-hover:text-emerald-300
               group-hover:scale-105
               inline-block
               animate-pulse
+              max-w-[60vw] truncate sm:max-w-none
             "
           >
             Ravindu Ravisara

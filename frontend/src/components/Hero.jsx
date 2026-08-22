@@ -30,7 +30,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div id="top" className="relative min-h-[92vh] sm:h-screen flex items-center overflow-hidden bg-slate-950 pt-20 sm:pt-16">
+    <div id="top" className="relative min-h-[92vh] sm:min-h-screen flex items-center overflow-hidden bg-slate-950 pt-20 sm:pt-16">
       {/* VIDEO */}
       <video
         ref={videoRef}
@@ -82,7 +82,7 @@ const Hero = () => {
               animate={{ opacity: [0.8, 1, 0.8] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-slate-900/60 backdrop-blur-md px-3 py-1.5 sm:px-4 sm:py-1.5 text-[11px] sm:text-xs font-semibold text-emerald-300 shadow-lg">
+              <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-emerald-400/40 bg-slate-900/60 backdrop-blur-md px-3 py-1.5 sm:px-4 sm:py-1.5 text-[10px] sm:text-xs font-semibold text-emerald-300 shadow-lg leading-tight text-center sm:text-left">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
@@ -93,7 +93,7 @@ const Hero = () => {
 
             {/* Name */}
             <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] text-white"
               animate={{ y: [0, -3, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             >
@@ -246,14 +246,6 @@ const Hero = () => {
                 </div>
               </div>
 
-              {/* Floating Badges */}
-              <motion.div
-                className="absolute -top-2 sm:-top-3 -left-2 sm:-left-3 rounded-full bg-slate-900 border border-slate-600 px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-[10px] sm:text-[11px] font-bold text-slate-200 shadow-lg shadow-black/30"
-                animate={{ y: [0, -4, 0], opacity: [0.75, 1, 0.75] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-              >
-              </motion.div>
-
               <motion.div
                 className="absolute -bottom-2 -right-2 rounded-full bg-emerald-500 px-2.5 sm:px-3 py-0.5 sm:py-1 text-[9px] sm:text-[10px] font-bold text-slate-950 shadow-lg shadow-emerald-500/30"
                 animate={{ y: [0, 3, 0], opacity: [0.9, 1, 0.9] }}
@@ -266,22 +258,6 @@ const Hero = () => {
         </div>
       </motion.div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
-      >
-        <span className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">Scroll</span>
-        <motion.div
-          className="w-5 h-8 rounded-full border-2 border-slate-500 flex justify-center pt-1.5"
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <motion.div className="w-1 h-1.5 rounded-full bg-slate-400" />
-        </motion.div>
-      </motion.div>
     </div>
   );
 };
