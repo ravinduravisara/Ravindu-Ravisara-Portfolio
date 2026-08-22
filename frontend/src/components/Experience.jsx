@@ -59,6 +59,10 @@ const educationItems = [
     text: "Introduction Prompt Engineering for Generative AI in LinkedIn Education Completed",
     href: "https://www.linkedin.com/learning/certificates/220899fb353ffb26b50cdd32527689d4eb3c419a695b90df23a061b7149945d3?trk=share_certificate",
   },
+  {
+    text: "Internship as Software Engineer at Employees Provident Fund (EPF) Department, Sri Lanka (23/02/2026 - 21/08/2026)",
+    
+  },
 ];
 
 // FIXED: Added text property to each item
