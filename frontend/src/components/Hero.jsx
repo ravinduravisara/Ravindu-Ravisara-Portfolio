@@ -252,7 +252,6 @@ const Hero = () => {
                 animate={{ y: [0, -4, 0], opacity: [0.75, 1, 0.75] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
               >
-                👋 Developer
               </motion.div>
 
               <motion.div
