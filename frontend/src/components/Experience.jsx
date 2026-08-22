@@ -61,6 +61,19 @@ const educationItems = [
   },
 ];
 
+// FIXED: Added text property to each item
+const courseworkItems = [
+  {
+    text: "Data Structures & Algorithms – searching, sorting, recursion, complexity.",
+  },
+  {
+    text: "Operating Systems – memory management, processes, scheduling.",
+  },
+  {
+    text: "Programming labs in C, Java, Python, Android, and web.",
+  },
+];
+
 const Experience = () => {
   return (
     <motion.section
@@ -73,8 +86,8 @@ const Experience = () => {
     >
       {/* soft background glows */}
       <motion.div
-        className="pointer-events-none absolute -top-10 left-[-40px] h-28 w-28 rounded-full bg-emerald-400/10 blur-3xl"
-        animate={{ opacity: [0.12, 0.35, 0.12], x: [0, 10, 0], y: [0, 6, 0] }}
+        className="pointer-events-none absolute -top-10 left-[-40px] h-28 w-28 rounded-full bg-emerald-400/15 blur-3xl"
+        animate={{ opacity: [0.15, 0.4, 0.15], x: [0, 10, 0], y: [0, 6, 0] }}
         transition={{
           duration: 9,
           repeat: Infinity,
@@ -83,8 +96,8 @@ const Experience = () => {
         }}
       />
       <motion.div
-        className="pointer-events-none absolute -bottom-12 right-[-40px] h-32 w-32 rounded-full bg-cyan-400/10 blur-3xl"
-        animate={{ opacity: [0.1, 0.3, 0.1], x: [0, -10, 0], y: [0, -6, 0] }}
+        className="pointer-events-none absolute -bottom-12 right-[-40px] h-32 w-32 rounded-full bg-sky-400/15 blur-3xl"
+        animate={{ opacity: [0.12, 0.35, 0.12], x: [0, -10, 0], y: [0, -6, 0] }}
         transition={{
           duration: 10,
           repeat: Infinity,
@@ -99,17 +112,17 @@ const Experience = () => {
         variants={headerVariants}
       >
         <div>
-          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-800">
             Experience &amp; Education
           </h2>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-slate-500 mt-1">
             Real-world problem-solving combined with academic software projects.
           </p>
         </div>
 
         {/* animated accent line */}
         <motion.div
-          className="hidden sm:block h-px w-20 bg-gradient-to-r from-emerald-400/80 via-sky-300/80 to-transparent"
+          className="hidden sm:block h-px w-20 bg-gradient-to-r from-emerald-500/80 via-sky-400/80 to-transparent"
           animate={{ width: ["3rem", "5.5rem", "3rem"], opacity: [0.5, 1, 0.5] }}
           transition={{
             duration: 5,
@@ -125,33 +138,33 @@ const Experience = () => {
         {/* -------- CARD 1: Education -------- */}
         <motion.div
           className="
-            bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 shadow-xl 
-            transition-all duration-300
-            hover:-translate-y-2 hover:shadow-emerald-500/20 hover:border-emerald-500/40
+            bg-white/80 border border-slate-200/70 rounded-2xl p-5 sm:p-6 shadow-xl shadow-slate-200/50
+            transition-all duration-300 backdrop-blur-sm
+            hover:-translate-y-2 hover:shadow-emerald-500/15 hover:border-emerald-400/50
           "
           variants={cardVariants}
           custom={0}
           whileHover={{ scale: 1.02 }}
         >
-          <h3 className="text-base font-semibold text-slate-100 mb-1">
+          <h3 className="text-base font-bold text-slate-800 mb-1">
             Education
           </h3>
-          <p className="text-xs text-slate-400 mb-4">
+          <p className="text-xs text-slate-500 mb-4 leading-relaxed">
             BSc (Hons) in Information Technology Specializing in Information
             Technology – Sri Lanka Institute of Information Technology
             (Undergraduate)
           </p>
 
-          <ul className="space-y-2 text-sm text-slate-300">
+          <ul className="space-y-2.5 text-sm text-slate-600">
             {educationItems.map((item, i) => (
               <motion.li
                 key={item.text}
-                className="flex items-start gap-2"
+                className="flex items-start gap-2.5"
                 variants={listItemVariants}
                 custom={i}
               >
                 <motion.span
-                  className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400"
+                  className="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"
                   animate={{ scale: [1, 1.25, 1], opacity: [0.7, 1, 0.7] }}
                   transition={{
                     duration: 3,
@@ -166,7 +179,7 @@ const Experience = () => {
                     href={item.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-emerald-300 hover:underline underline-offset-4 transition-colors"
+                    className="hover:text-emerald-600 hover:underline underline-offset-4 transition-colors font-medium"
                   >
                     {item.text}
                   </a>
@@ -181,35 +194,31 @@ const Experience = () => {
         {/* -------- CARD 2: IT / Software Undergraduate -------- */}
         <motion.div
           className="
-            bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 shadow-xl 
-            transition-all duration-300
-            hover:-translate-y-2 hover:shadow-emerald-500/20 hover:border-emerald-500/40
+            bg-white/80 border border-slate-200/70 rounded-2xl p-5 sm:p-6 shadow-xl shadow-slate-200/50
+            transition-all duration-300 backdrop-blur-sm
+            hover:-translate-y-2 hover:shadow-emerald-500/15 hover:border-emerald-400/50
           "
           variants={cardVariants}
           custom={1}
           whileHover={{ scale: 1.02 }}
         >
-          <h3 className="text-base font-semibold text-slate-100 mb-1">
+          <h3 className="text-base font-bold text-slate-800 mb-1">
             IT / Software Undergraduate
           </h3>
-          <p className="text-xs text-slate-400 mb-4">
+          <p className="text-xs text-slate-500 mb-4">
             University-level coursework &amp; labs
           </p>
 
-          <ul className="space-y-2 text-sm text-slate-300">
-            {[
-              "Data Structures & Algorithms – searching, sorting, recursion, complexity.",
-              "Operating Systems – memory management, processes, scheduling.",
-              "Programming labs in C, Java, Python, Android, and web.",
-            ].map((item, i) => (
+          <ul className="space-y-2.5 text-sm text-slate-600">
+            {courseworkItems.map((item, i) => (
               <motion.li
-                key={item}
-                className="flex items-start gap-2"
+                key={item.text}
+                className="flex items-start gap-2.5"
                 variants={listItemVariants}
                 custom={i}
               >
                 <motion.span
-                  className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400"
+                  className="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"
                   animate={{ scale: [1, 1.25, 1], opacity: [0.7, 1, 0.7] }}
                   transition={{
                     duration: 3,
@@ -219,7 +228,7 @@ const Experience = () => {
                     delay: i * 0.15,
                   }}
                 />
-                <span>{item}</span>
+                <span>{item.text}</span>
               </motion.li>
             ))}
           </ul>

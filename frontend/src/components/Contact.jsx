@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "emailjs-com";
 
-const SERVICE_ID = "service_nyc7ec9";   // <- replace
-const TEMPLATE_ID = "template_2ggbyfh"; // <- replace
-const PUBLIC_KEY  = "XVljrUlYD8uHY3RQf";  // <- replace
+const SERVICE_ID = "service_nyc7ec9";
+const TEMPLATE_ID = "template_2ggbyfh";
+const PUBLIC_KEY  = "XVljrUlYD8uHY3RQf";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 25 },
@@ -112,7 +112,7 @@ const Contact = () => {
         className="absolute inset-0 -z-10 flex justify-center"
         initial={{ opacity: 0.6, scale: 0.9 }}
         animate={{
-          opacity: [0.4, 0.8, 0.4],
+          opacity: [0.3, 0.7, 0.3],
           scale: [0.9, 1.05, 0.9],
         }}
         transition={{
@@ -122,25 +122,25 @@ const Contact = () => {
           ease: "easeInOut",
         }}
       >
-        <div className="h-[300px] w-[300px] bg-emerald-500/20 blur-[160px]" />
+        <div className="h-[300px] w-[300px] bg-emerald-400/20 blur-[160px]" />
       </motion.div>
 
       {/* Card */}
       <motion.div
         className="
-          max-w-xl mx-auto bg-slate-900/60 border border-slate-800/80 rounded-2xl
-          p-6 sm:p-7 shadow-xl backdrop-blur-xl
+          max-w-xl mx-auto bg-white/80 border border-slate-200/70 rounded-2xl
+          p-6 sm:p-8 shadow-2xl shadow-slate-200/50 backdrop-blur-xl
           transition-all duration-500
         "
         variants={cardVariants}
         whileHover={{
           y: -8,
-          boxShadow: "0 25px 60px rgba(16,185,129,0.35)",
-          borderColor: "rgba(16,185,129,0.6)",
+          boxShadow: "0 25px 60px rgba(16,185,129,0.12)",
+          borderColor: "rgba(16,185,129,0.4)",
         }}
       >
         <motion.h2
-          className="text-2xl sm:text-3xl font-semibold tracking-tight mb-2"
+          className="text-2xl sm:text-3xl font-bold tracking-tight mb-2 text-slate-800"
           variants={itemVariants}
           custom={0}
         >
@@ -148,7 +148,7 @@ const Contact = () => {
         </motion.h2>
 
         <motion.p
-          className="text-sm text-slate-400 mb-5"
+          className="text-sm text-slate-500 mb-6 leading-relaxed"
           variants={itemVariants}
           custom={0.5}
         >
@@ -157,33 +157,42 @@ const Contact = () => {
         </motion.p>
 
         {/* Contact Info */}
-        <div className="space-y-3 text-sm text-slate-200 mb-5">
+        <div className="grid sm:grid-cols-2 gap-4 text-sm mb-6">
           {contacts.map((item, i) => (
             <motion.div
               key={item.label}
               variants={itemVariants}
               custom={1 + i * 0.5}
+              className="rounded-xl bg-slate-50/80 border border-slate-100 p-3 hover:border-emerald-200 transition-colors duration-300"
             >
-              <div className="text-slate-400 text-xs mb-1">{item.label}</div>
+              <div className="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">
+                {item.label}
+              </div>
               <motion.a
                 href={item.link}
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-emerald-300 transition-colors break-all inline-flex items-center gap-1"
-                whileHover={{ x: 1 }}
+                className="text-slate-700 hover:text-emerald-600 transition-colors break-all inline-flex items-center gap-1 font-medium"
+                whileHover={{ x: 2 }}
               >
                 {item.value}
-                <span className="text-[11px] opacity-70">↗</span>
+                <span className="text-[11px] opacity-60">↗</span>
               </motion.a>
             </motion.div>
           ))}
 
           {/* Location */}
-          <motion.div variants={itemVariants} custom={2.2}>
-            <div className="text-slate-400 text-xs mb-1">Location</div>
-            <p className="text-slate-200">
+          <motion.div
+            variants={itemVariants}
+            custom={2.2}
+            className="rounded-xl bg-slate-50/80 border border-slate-100 p-3 hover:border-emerald-200 transition-colors duration-300 sm:col-span-2"
+          >
+            <div className="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">
+              Location
+            </div>
+            <p className="text-slate-700 font-medium">
               Sri Lanka ·{" "}
-              <span className="text-emerald-300">Open to remote work</span>
+              <span className="text-emerald-600 font-semibold">Open to remote work</span>
             </p>
           </motion.div>
         </div>
@@ -191,9 +200,9 @@ const Contact = () => {
         {/* FORM */}
         <form onSubmit={sendEmail} className="space-y-4 text-sm">
           {/* Name + Email */}
-          <div className="grid sm:grid-cols-2 gap-3">
+          <div className="grid sm:grid-cols-2 gap-4">
             <motion.div variants={itemVariants} custom={2.6}>
-              <label className="block text-xs text-slate-400 mb-1">
+              <label className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">
                 Name
               </label>
               <motion.input
@@ -203,9 +212,10 @@ const Contact = () => {
                 value={form.from_name}
                 onChange={handleChange}
                 className="
-                  w-full rounded-lg bg-slate-900/80 border border-slate-700 px-3 py-2
-                  text-sm focus:outline-none focus:border-emerald-400
-                  transition-all duration-300 hover:border-slate-500
+                  w-full rounded-xl bg-white border border-slate-200 px-4 py-2.5
+                  text-sm text-slate-800 placeholder:text-slate-400
+                  focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100
+                  transition-all duration-300 hover:border-slate-300 shadow-sm
                 "
                 placeholder="Your name"
                 whileFocus={{ scale: 1.005 }}
@@ -213,7 +223,7 @@ const Contact = () => {
             </motion.div>
 
             <motion.div variants={itemVariants} custom={2.8}>
-              <label className="block text-xs text-slate-400 mb-1">
+              <label className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">
                 Email
               </label>
               <motion.input
@@ -223,9 +233,10 @@ const Contact = () => {
                 value={form.from_email}
                 onChange={handleChange}
                 className="
-                  w-full rounded-lg bg-slate-900/80 border border-slate-700 px-3 py-2
-                  text-sm focus:outline-none focus:border-emerald-400
-                  transition-all duration-300 hover:border-slate-500
+                  w-full rounded-xl bg-white border border-slate-200 px-4 py-2.5
+                  text-sm text-slate-800 placeholder:text-slate-400
+                  focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100
+                  transition-all duration-300 hover:border-slate-300 shadow-sm
                 "
                 placeholder="you@example.com"
                 whileFocus={{ scale: 1.005 }}
@@ -235,7 +246,7 @@ const Contact = () => {
 
           {/* Message textarea */}
           <motion.div variants={itemVariants} custom={3.1}>
-            <label className="block text-xs text-slate-400 mb-1">
+            <label className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">
               Message
             </label>
             <motion.textarea
@@ -245,9 +256,10 @@ const Contact = () => {
               value={form.message}
               onChange={handleChange}
               className="
-                w-full rounded-lg bg-slate-900/80 border border-slate-700 px-3 py-2
-                text-sm focus:outline-none focus:border-emerald-400 resize-none
-                transition-all duration-300 hover:border-slate-500
+                w-full rounded-xl bg-white border border-slate-200 px-4 py-2.5
+                text-sm text-slate-800 placeholder:text-slate-400 resize-none
+                focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100
+                transition-all duration-300 hover:border-slate-300 shadow-sm
               "
               placeholder="Tell me about your project or opportunity..."
               whileFocus={{ scale: 1.005 }}
@@ -258,24 +270,34 @@ const Contact = () => {
           <motion.button
             type="submit"
             className="
-              mt-4 inline-flex items-center justify-center rounded-full bg-emerald-500
-              px-5 py-2 text-sm font-medium text-slate-950
-              hover:bg-emerald-400 transition-all duration-300
-              hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-500/30
+              mt-4 inline-flex items-center justify-center rounded-full bg-emerald-600
+              px-6 py-2.5 text-sm font-semibold text-white
+              hover:bg-emerald-500 transition-all duration-300
+              hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-500/20
               w-full
             "
             variants={itemVariants}
             custom={3.6}
-            whileHover={{ scale: 1.03 }}
+            whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97, y: 0 }}
           >
             Send Message
           </motion.button>
 
           {status && (
-            <p className="text-center text-sm mt-2 text-emerald-300">
+            <motion.p
+              className={`text-center text-sm mt-3 font-medium ${
+                status.includes("success")
+                  ? "text-emerald-600"
+                  : status.includes("Sending")
+                  ? "text-slate-500"
+                  : "text-red-500"
+              }`}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
               {status}
-            </p>
+            </motion.p>
           )}
         </form>
       </motion.div>

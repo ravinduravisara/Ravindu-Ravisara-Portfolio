@@ -83,8 +83,8 @@ const Skills = () => {
     >
       {/* Soft floating background accents */}
       <motion.div
-        className="pointer-events-none absolute -top-10 left-[-40px] h-28 w-28 rounded-full bg-emerald-400/10 blur-3xl"
-        animate={{ opacity: [0.12, 0.35, 0.12], x: [0, 10, 0], y: [0, 6, 0] }}
+        className="pointer-events-none absolute -top-10 left-[-40px] h-28 w-28 rounded-full bg-emerald-400/15 blur-3xl"
+        animate={{ opacity: [0.15, 0.4, 0.15], x: [0, 10, 0], y: [0, 6, 0] }}
         transition={{
           duration: 9,
           repeat: Infinity,
@@ -93,8 +93,8 @@ const Skills = () => {
         }}
       />
       <motion.div
-        className="pointer-events-none absolute -bottom-14 right-[-40px] h-32 w-32 rounded-full bg-cyan-400/10 blur-3xl"
-        animate={{ opacity: [0.1, 0.3, 0.1], x: [0, -10, 0], y: [0, -6, 0] }}
+        className="pointer-events-none absolute -bottom-14 right-[-40px] h-32 w-32 rounded-full bg-sky-400/15 blur-3xl"
+        animate={{ opacity: [0.12, 0.35, 0.12], x: [0, -10, 0], y: [0, -6, 0] }}
         transition={{
           duration: 10,
           repeat: Infinity,
@@ -109,17 +109,17 @@ const Skills = () => {
         variants={titleVariants}
       >
         <div>
-          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-800">
             Skills
           </h2>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-slate-500 mt-1">
             A mix of full-stack, mobile, scripting, and analytics skills.
           </p>
         </div>
 
         {/* Tiny animated accent line on the right */}
         <motion.div
-          className="hidden sm:block h-px w-20 bg-gradient-to-r from-emerald-400/80 via-cyan-300/80 to-transparent"
+          className="hidden sm:block h-px w-20 bg-gradient-to-r from-emerald-500/80 via-sky-400/80 to-transparent"
           animate={{ width: ["3rem", "5rem", "3rem"], opacity: [0.5, 1, 0.5] }}
           transition={{
             duration: 5,
@@ -139,9 +139,9 @@ const Skills = () => {
           <motion.div
             key={category}
             className="
-              bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 shadow-xl
-              transition-all duration-300 
-              hover:-translate-y-2 hover:shadow-emerald-500/25
+              bg-white/80 border border-slate-200/70 rounded-2xl p-5 sm:p-6 shadow-xl shadow-slate-200/50
+              backdrop-blur-sm transition-all duration-300 
+              hover:-translate-y-2 hover:shadow-emerald-500/15 hover:border-emerald-400/50
             "
             variants={cardVariants}
             custom={idx}
@@ -151,7 +151,7 @@ const Skills = () => {
           >
             {/* animated accent bar */}
             <motion.div
-              className="mb-3 h-px w-10 bg-gradient-to-r from-emerald-400/90 via-cyan-300/80 to-transparent"
+              className="mb-3 h-px w-10 bg-gradient-to-r from-emerald-500/90 via-sky-400/80 to-transparent"
               animate={{ width: ["2.5rem", "4rem", "2.5rem"] }}
               transition={{
                 duration: 4,
@@ -161,15 +161,15 @@ const Skills = () => {
                 delay: idx * 0.3,
               }}
             />
-            <h3 className="text-sm font-semibold text-emerald-300 mb-2">
+            <h3 className="text-sm font-bold text-emerald-600 mb-3 uppercase tracking-wider">
               {category}
             </h3>
 
-            <ul className="space-y-2 text-sm text-slate-200">
+            <ul className="space-y-2.5 text-sm text-slate-600">
               {items.map((item, i) => (
                 <motion.li
                   key={item}
-                  className="flex items-start gap-2 group"
+                  className="flex items-start gap-2.5 group"
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{
@@ -180,8 +180,8 @@ const Skills = () => {
                   {/* animated dot */}
                   <motion.span
                     className="
-                      mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400 
-                      group-hover:bg-emerald-300 group-hover:scale-125 
+                      mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0
+                      group-hover:bg-emerald-600 group-hover:scale-125 
                       transition-all
                     "
                     animate={{ opacity: [0.7, 1, 0.7], scale: [1, 1.15, 1] }}
@@ -196,8 +196,8 @@ const Skills = () => {
 
                   {/* item text */}
                   <motion.span
-                    className="group-hover:text-emerald-200 transition-colors"
-                    whileHover={{ x: 1 }}
+                    className="group-hover:text-emerald-600 transition-colors font-medium"
+                    whileHover={{ x: 2 }}
                   >
                     {item}
                   </motion.span>
