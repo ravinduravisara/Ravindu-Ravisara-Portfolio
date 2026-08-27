@@ -224,6 +224,9 @@ const Footer = () => {
                 <img
                   src="/logo.png"
                   alt="Ravindu Ravisara Logo"
+                  loading="lazy"
+                  decoding="async"
+                  draggable={false}
                   className="
                     h-full
                     w-full

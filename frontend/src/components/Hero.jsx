@@ -26,7 +26,40 @@ const Hero = () => {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    v.play().catch(() => {});
+
+    // Use IntersectionObserver to lazy-load the hero background video
+    // only when the hero section scrolls into view (saves bandwidth on phones/laptops)
+    let obs;
+    try {
+      obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // set src to start loading the video
+              if (!v.src) {
+                v.src = "/videos/hero-bg.mp4";
+                // load then attempt to play (play may be blocked until user interaction)
+                v.load();
+              }
+              v.play().catch(() => {});
+              if (obs) obs.disconnect();
+            }
+          });
+        },
+        { rootMargin: "200px" }
+      );
+
+      obs.observe(v);
+    } catch (e) {
+      // IntersectionObserver may not be available in some older environments — fall back to immediate load
+      if (!v.src) v.src = "/videos/hero-bg.mp4";
+      v.load();
+      v.play().catch(() => {});
+    }
+
+    return () => {
+      if (obs) obs.disconnect();
+    };
   }, []);
 
   return (
@@ -38,10 +71,11 @@ const Hero = () => {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="none"
         className="absolute inset-0 h-full w-full object-cover"
         style={{ zIndex: 0 }}
-        src="/videos/hero-bg.mp4"
+        // src will be assigned by IntersectionObserver when the hero is in view
+        draggable={false}
       />
 
       {/* Overlays */}
@@ -207,6 +241,8 @@ const Hero = () => {
                 <motion.img
                   src={profileImg}
                   alt="Ravindu Ravisara"
+                  loading="lazy"
+                  draggable={false}
                   className="h-full w-full object-cover"
                   animate={{ scale: [1.05, 1.08, 1.05] }}
                   transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}

@@ -1268,6 +1268,8 @@ const DepthCarousel = ({
                       item.title ||
                       ''
                     }
+                    loading="lazy"
+                    decoding="async"
                     draggable={
                       false
                     }
