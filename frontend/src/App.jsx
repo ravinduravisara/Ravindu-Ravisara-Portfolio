@@ -1,4 +1,5 @@
 import React, { Suspense, lazy, useEffect, useRef, useState } from "react";
+import { MotionConfig } from "framer-motion";
 import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
 const Skills = lazy(() => import("./components/Skills.jsx"));
@@ -120,7 +121,8 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen text-slate-900">
+    <MotionConfig reducedMotion="always">
+      <div className="relative min-h-screen text-slate-900">
 
       <Navbar />
 
@@ -153,6 +155,7 @@ export default function App() {
           <Footer />
         </Suspense>
       </div>
-    </div>
+      </div>
+    </MotionConfig>
   );
 }

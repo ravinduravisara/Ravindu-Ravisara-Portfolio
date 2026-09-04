@@ -27,38 +27,32 @@ const Hero = () => {
     const v = videoRef.current;
     if (!v) return;
 
-    // Use IntersectionObserver to lazy-load the hero background video
-    // only when the hero section scrolls into view (saves bandwidth on phones/laptops)
-    let obs;
-    try {
-      obs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              // set src to start loading the video
-              if (!v.src) {
-                v.src = "/videos/hero-bg.mp4";
-                // load then attempt to play (play may be blocked until user interaction)
-                v.load();
-              }
-              v.play().catch(() => {});
-              if (obs) obs.disconnect();
-            }
-          });
-        },
-        { rootMargin: "200px" }
-      );
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const isSmallScreen = window.matchMedia("(max-width: 767px)").matches;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isSlowConnection = connection?.saveData || /2g/.test(connection?.effectiveType || "");
+    if (isSmallScreen || prefersReducedMotion || isSlowConnection) return;
 
-      obs.observe(v);
-    } catch (e) {
-      // IntersectionObserver may not be available in some older environments — fall back to immediate load
-      if (!v.src) v.src = "/videos/hero-bg.mp4";
+    let loadTimer;
+    const loadVideo = () => {
+      if (v.src) return;
+      v.src = "/videos/hero-bg.mp4";
       v.load();
       v.play().catch(() => {});
+    };
+
+    if (typeof window.requestIdleCallback === "function") {
+      loadTimer = window.requestIdleCallback(loadVideo, { timeout: 2500 });
+    } else {
+      loadTimer = window.setTimeout(loadVideo, 1500);
     }
 
     return () => {
-      if (obs) obs.disconnect();
+      if (typeof window.cancelIdleCallback === "function" && typeof loadTimer === "number") {
+        window.cancelIdleCallback(loadTimer);
+      } else {
+        window.clearTimeout(loadTimer);
+      }
     };
   }, []);
 
@@ -71,7 +65,8 @@ const Hero = () => {
         muted
         loop
         playsInline
-        preload="none"
+        preload="metadata"
+        poster={profileImg}
         className="absolute inset-0 h-full w-full object-cover"
         style={{ zIndex: 0 }}
         // src will be assigned by IntersectionObserver when the hero is in view
